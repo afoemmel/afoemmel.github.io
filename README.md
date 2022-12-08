@@ -1,1 +1,82 @@
-# afoemmel.github.io
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Game
+    </title>
+    <script>
+        var alerts = true;
+        var aButtonText = 'on';
+        function funButton() {
+            var bigButton = document.getElementById("redButton");
+            console.log(bigButton.style.backgroundColor);
+            if (document.getElementById("redButton").style.backgroundColor === 'rgb(219, 0, 0)') {
+                console.log("funButton");
+                bigButton.style.backgroundColor='#89CFF0';
+                if (alerts === true) {
+                    alert("Hello");
+                }
+            }
+            else {
+                console.log("else");
+                if (alerts === true) {
+                    alert("Bye");
+                }
+                bigButton.style.backgroundColor='rgb(219,0,0)';
+                console.log(bigButton.style.backgroundColor);
+            }
+        }
+        function alertFun() {
+            alerts = !alerts;
+            if (alerts === true) {
+                aButtonText = ":)";
+            }
+            else {
+                aButtonText = ":(";
+            }
+            document.getElementById("alertButton").innerHTML = aButtonText;
+        }
+        window.onload = function(){  
+            var bigButton = document.getElementById("redButton");
+            console.log(bigButton);
+            bigButton.style.backgroundColor = 'rgb(219, 0, 0)';
+            console.log(bigButton.style.backgroundColor);
+        }
+
+    </script>
+    <style>
+        #redButton {
+            height: 20%;
+            width: 20%;
+            padding-bottom: 20%;
+            border-radius: 50%;
+            border-width: 50%;
+            margin-top: 15%;
+            margin-bottom: 15%;
+            margin-left: 40%;
+        }
+        .body {
+            height: 150%
+        }
+        .text {
+            margin-top: 50%;
+        }
+        #togAlerts {
+            width: 30px;
+            font-family: "Tahoma", "Lucida Sans", "Times New Roman", "Gill Sans";
+        }
+        .text {
+            margin-top: -5%;
+            font-family: "Tahoma", "Lucida Sans", "Times New Roman", "Gill Sans";
+        }
+    </style>
+</head>
+<body class="body">
+    <button id="redButton" type="button" onclick="funButton()">
+    </button>
+    <p class="text">Toggle Alerts</p>
+    <button id="togAlerts" type="button" onclick="alertFun()">
+        <p id="alertButton">:)</p>
+    </button>
+</body>
+</html>
