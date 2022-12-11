@@ -50,9 +50,7 @@
             padding-bottom: 20vw;
             border-radius: 50vw;
             border-width: 0.25vw;
-            margin-top: 15vw;
-            margin-bottom: 15vw;
-            margin-left: 40vw;
+            margin: auto;
         }
         body {
             height: 50vw;
