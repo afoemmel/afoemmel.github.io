@@ -1,82 +1,76 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Game
-    </title>
-    <script>
-        var alerts = true;
-        var aButtonText = 'on';
-        function funButton() {
-            var bigButton = document.getElementById("redButton");
-            console.log(bigButton.style.backgroundColor);
-            if (document.getElementById("redButton").style.backgroundColor === 'rgb(219, 0, 0)') {
-                console.log("funButton");
-                bigButton.style.backgroundColor='#89CFF0';
-                if (alerts === true) {
-                    alert("Hello");
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            var guyLeft = 0;
+            var guyUp = 0;
+            function moveGuy(e) {
+                //id = setInterval(moveGuy(e), 10)
+                if (e.key == 'ArrowLeft') {
+                    guyLeft -= 10;
+                    guy.style.left = guyLeft + 'px';
                 }
-            }
-            else {
-                console.log("else");
-                if (alerts === true) {
-                    alert("Bye");
+                if (e.key == 'ArrowRight') {
+                    guyLeft += 10;
+                    guy.style.left = guyLeft + 'px';
                 }
-                bigButton.style.backgroundColor='rgb(219,0,0)';
-                console.log(bigButton.style.backgroundColor);
+                if (e.key == 'ArrowUp') {
+                    guyUp += 10;
+                    guy.style.bottom = guyUp + 'px';
+                }
+                if (e.key == 'ArrowDown') {
+                    //guyUp -= 10;
+                    guy.src = 'spriteDown.png';
+                    guy.style.height = '96px';
+                    guy.style.width = '88px';
+                    setTimeout(2000);
+                    //guy.style.bottom = guyUp + 'px';
+                }
+                // left=37 up=38 right=39 down=40
             }
-        }
-        function alertFun() {
-            alerts = !alerts;
-            if (alerts === true) {
-                aButtonText = ":)";
+            function resetGuy() {
+                //clearInterval(id);
+                guy.src = 'coolSprite.png';
+                guy.style.height = '112px';
+                guy.style.width = '72px';
+                console.log("reset lol");
             }
-            else {
-                aButtonText = ":(";
-            }
-            document.getElementById("alertButton").innerHTML = aButtonText;
-        }
-        window.onload = function(){  
-            var bigButton = document.getElementById("redButton");
-            console.log(bigButton);
-            bigButton.style.backgroundColor = 'rgb(219, 0, 0)';
-            console.log(bigButton.style.backgroundColor);
-        }
+            document.onkeydown = moveGuy;
+            document.onkeyup = resetGuy;
+            window.onload = function() {
+                var guy = document.getElementById("guy");
+                guy.style.left = guyLeft + 'px';
+                guy.style.bottom = guyUp + 'px';
 
-    </script>
-    <style>
-        #redButton {
-            height: 20vh;
-            width: 20vh;
-            border-radius: 50vw;
-            border-width: 0.25vw;
-            margin-top: 40vh;
-            align: center;
-        }
-        body {
-            height: 100vh;
-            width: 100vw;
-        }
-        .text {
-            margin-top: 49vw;
-        }
-        #togAlerts {
-            width: 5vw;
-            font-family: "Tahoma", "Lucida Sans", "Times New Roman", "Gill Sans";
-        }
-        .text {
-            margin-top: -5vw;
-            font-family: "Tahoma", "Lucida Sans", "Times New Roman", "Gill Sans";
-        }
-    </style>
-</head>
-<body>
-    <button id="redButton" type="button" onclick="funButton()">
-    </button>
-    <p class="text">Toggle Alerts</p>
-    <button id="togAlerts" type="button" onclick="alertFun()">
-        <p id="alertButton">:)</p>
-    </button>
-</body>
+            }
+        </script>
+        <title>
+            Awesome game
+        </title>
+        <style>
+            #guy {
+                height: 112px;
+                width: 72px;
+                image-rendering: pixelated;
+                position: absolute;
+                margin-bottom: 40vh;
+                margin-left: 50vw;
+            }
+            #bg {
+                background-color:azure;
+                margin: 3px;
+                height: 100%;
+            }
+            body {
+                height: 100vh;
+                margin: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="bg">
+            <img src="coolSprite.png" id="guy">
+        </div>
+    </body>
 </html>
