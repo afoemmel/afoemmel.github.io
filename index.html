@@ -3,31 +3,79 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
+            var canvas, ctx;
             var guyLeft = 0;
-            var guyUp = 0;
+            var guyVertPos = 0;
+            //guy vertical position (from the bottom)
+            var id = null;
+            var jomp = 30;
+            var jumpedUp = false;
+            var isJumping = false;
+            var isMoving = false;
             function moveGuy(e) {
-                //id = setInterval(moveGuy(e), 10)
+                if (e.key == 'ArrowUp') {
+                    if (isJumping) {
+                            return
+                        }
+                    isJumping = true;
+                    jumpInt = setInterval(jump, 10);
+                    console.log("Int set jump");
+                    function jump() {
+                        if (jomp > 0.6 && !jumpedUp) {
+                            guyVertPos += jomp;
+                            guy.style.bottom = guyVertPos + 'px';
+                            //console.log("JOMP UP " + jomp + " to " + guyVertPos)
+                            jomp /= 1.2;
+                        }
+                        else {
+                            jumpedUp = true;
+                        }
+                        if (jomp < 30 && jumpedUp) {
+                            jomp *= 1.2;
+                            guyVertPos -= jomp;
+                            guy.style.bottom = guyVertPos + 'px';
+                            //console.log("JOMP DOWN " + jomp + " to " + guyVertPos);
+                        }
+                        else if (jomp >= 30) {
+                            jomp = 30;
+                            jumpedUp = false;
+                            isJumping = false;
+                            guyVertPos = Math.round(guyVertPos);
+                            clearInterval(jumpInt);
+                        }
+                    }
+                }
+                if (isMoving) {
+                    return;
+                }
                 if (e.key == 'ArrowLeft') {
-                    guyLeft -= 10;
-                    guy.style.left = guyLeft + 'px';
+                    isMoving = true;
+                    id = setInterval(left, 5);
+                    console.log("Int left");
+                    function left() {
+                        guyLeft -= 2;
+                        guy.style.left = guyLeft + 'px';
+                    }
                 }
                 if (e.key == 'ArrowRight') {
-                    guyLeft += 10;
-                    guy.style.left = guyLeft + 'px';
-                }
-                if (e.key == 'ArrowUp') {
-                    guyUp += 10;
-                    guy.style.bottom = guyUp + 'px';
+                    isMoving = true;
+                    id = setInterval(right, 5);
+                    console.log("Int right");
+                    function right() {
+                        guyLeft += 2;
+                        guy.style.left = guyLeft + 'px';
+                    }
                 }
                 if (e.key == 'ArrowDown') {
-                    guyUp -= 10;
-                    guy.src = 'spriteDown.png';
-                    guy.style.height = '96px';
-                    guy.style.width = '88px';
-                    setTimeout(2000);
-                    guy.style.bottom = guyUp + 'px';
+                    isMoving = true;
+                    id = setInterval(down, 5);
+                    console.log("Int down");
+                        function down() {
+                        //guyVertPos -= 2;
+                        guy.src = 'spriteDown.png';
+                        //guy.style.bottom = guyVertPos + 'px';
+                    }
                 }
-                // left=37 up=38 right=39 down=40
             }
             function resetGuy() {
                 //clearInterval(id);
