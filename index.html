@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">      
         <script>
             var canvas, ctx;
             var guyLeft = 0;
@@ -69,6 +69,8 @@
                 if (e.key == 'ArrowDown') {
                     isMoving = true;
                     id = setInterval(down, 5);
+                    guy.style.height = '96px';
+                    guy.style.width = '88px';
                     console.log("Int down");
                         function down() {
                         //guyVertPos -= 2;
@@ -77,24 +79,30 @@
                     }
                 }
             }
-            function resetGuy() {
-                //clearInterval(id);
+            function resetGuy(e) {
+                if (e.key != 'ArrowUp') {
+                    clearInterval(id);
+                }
+                isMoving = false;
                 guy.src = 'coolSprite.png';
+                console.log("reset lol");
                 guy.style.height = '112px';
                 guy.style.width = '72px';
-                console.log("reset lol");
+                //console.log(Math.round(guyVertPos));
             }
             document.onkeydown = moveGuy;
             document.onkeyup = resetGuy;
+
             window.onload = function() {
                 var guy = document.getElementById("guy");
                 guy.style.left = guyLeft + 'px';
-                guy.style.bottom = guyUp + 'px';
-
+                guy.style.bottom = guyVertPos + 'px';
+                /*canvas = document.getElementById("bg");
+                ctx = canvas.getContext("2d");*/
             }
         </script>
         <title>
-            Awesome game
+            Dancing (in progress)
         </title>
         <style>
             #guy {
@@ -104,13 +112,16 @@
                 position: absolute;
                 margin-bottom: 40vh;
                 margin-left: 50vw;
+                /*background: url('coolSprite.png');
+                background-repeat: no-repeat;*/
+                
             }
             #bg {
-                background-color:azure;
-                margin: 3px;
-                height: 100%;
+                height: 120px;
+                width: 104px;
             }
             body {
+                background-color:azure;
                 height: 100vh;
                 margin: 0px;
             }
